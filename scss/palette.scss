@@ -1,0 +1,34 @@
+$dark-1: #3D3A4b;
+$beige: #eeebd0;
+$main-red: #c70a0a;
+$shade-red-1: #c33838;
+$shade-red-2: #ebb3a9;
+$shade-red-3: #e87ea1;
+
+$principal-color: #eff9f8;
+$title-color-1:#465b5a;
+$card-color-1: #87b0ae;
+
+
+$custom-theme-colors: (
+  "principal-color": $principal-color,
+  "title-color-1": $title-color-1,
+  "card-color-1": $card-color-1,
+  "main-red": $main-red,
+  "shade-red-1": $shade-red-1,
+  "shade-red-2": $shade-red-2,
+  "shade-red-3": $shade-red-3,
+  "dark-1": $dark-1,
+  "beige": $beige
+);
+
+$theme-colors: map-merge($custom-theme-colors, $theme-colors);
+
+@each $key, $val in $custom-theme-colors {
+  .bg-#{$key} {
+    background-color: $val!important;
+  }
+  .text-#{$key} {
+    color: $val!important;
+  }
+}
