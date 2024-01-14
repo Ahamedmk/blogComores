@@ -13,13 +13,27 @@
 
     //Variable
 		$story         =htmlspecialchars($_POST['texte']);
-        $email         =htmlspecialchars($_POST['email']);
+        // $email         =htmlspecialchars($_POST['email']);
         $nombre        =htmlspecialchars($_POST['number']);
 
     // Ajouter des donnée
     $requete = $bdd->prepare('INSERT INTO commentaires(contenu, utilisateur_id ) VALUES(?, ?)');
     $requete->execute([$story, $nombre]);
     
+    // supprimer des donnée
+    $requete = $bdd->prepare('DELETE FROM commentaires Where contenu = :id');
+    $requete->execute(
+        [
+            'id'=> 'je reviendrais demain avec le reste de ma famille'
+        ]
+    );
+
+    // modifier les donner
+    //  $requete = $bdd->prepare('UPDATE commentaires SET contenu = :newContenu WHERE utilisateur_id = :userd');
+    //  $requete->execute([
+    //    'newContenu' => 'il change que le 7',
+    //    'userd'=> 7
+    //  ]);
 
 
          // creation de la requete
@@ -60,7 +74,7 @@
 
             <?php 
              while($commentaire = $reponse->fetch()) {
-                echo '<div class="text-dark-1 m-2">' .$commentaire['contenu']  .$commentaire['date'].'</div>';
+                echo '<div class="text-dark-1 m-2">' .$commentaire['contenu']. '<br>' .$commentaire['date'].'</div>';
              }
             
             ?>

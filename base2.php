@@ -26,17 +26,17 @@
     <a href="reservation.html" class="text-light text-uppercase text-decoration-none ms-3">Reservation</a>
     </nav>
 
-    <div class="bg-dark mb-5 text-center ">
+    <!-- <div class="bg-dark mb-5 text-center ">
       <div class="d-flex justify-content-end me-5">
       <h1 class="playfair-font display-2 text-beige text-center m-2">Les Iles de la Lune</h1>
       <div class="d-none d-sm-block w-25">
         <img src="./ressources/images/lune.png" class="w-25" alt="lune">
       </div>
       
-    </div>
+     </div>
 
       <p class="cinzel text-center fs-5">Al-quamar</p>
-     </div>
+     </div> -->
 
     <!-- Global Container -->
     <div class="container flex-grow-1 flex-shrink-0 pb-5">
