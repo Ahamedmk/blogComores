@@ -1,14 +1,20 @@
 <?php
     $title = "inscription";
-
+	session_start();
     ob_start();
 
-	if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['password_two'])) {
+	if (isset($_SESSION['connect'])) {
+		header('location : index.php');
+		exit();
+	}
+
+	if (!empty($_POST['pseudo']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['password_two'])) {
 
 		// Connexion à la bdd
 		require_once('connection.php');
 
 		//Variable
+		$pseudo        =htmlspecialchars($_POST['pseudo']); 
 		$email         =htmlspecialchars($_POST['email']);
 		$password         =htmlspecialchars($_POST['password']);
 		$passwordTwo         =htmlspecialchars($_POST['password_two']);
@@ -49,8 +55,8 @@
 	   $secret = sha1($secret).time();
 
 	   // Ajouter un utilisateur
-	   $req = $bdd->prepare('INSERT INTO user(email, password, secret) VALUES(?, ?, ?)');
-	   $req->execute([$email, $password, $secret]);
+	   $req = $bdd->prepare('INSERT INTO user(pseudo, email, password, secret) VALUES(?, ?, ?, ?)');
+	   $req->execute([$pseudo,$email, $password, $secret]);
 
 	   header('location: inscription2.php?success=1');
 	   exit();
@@ -72,6 +78,7 @@
 			} ?>
 
 			<form method="post" class="d-flex flex-column w-50 h-50 m-auto mb-3" action="inscription2.php">
+			<input class="mb-4 py-2 border-1  rounded-top-3 ps-2" type="text" name="pseudo" placeholder="Votre pseudo" required />
 				<input class="mb-4 py-2 border-1  rounded-top-3 ps-2" type="email" name="email" placeholder="Votre adresse email" required />
 				<input class="mb-4 py-2 ps-2  " type="password" name="password" placeholder="Mot de passe" required />
 				<input class="mb-4 py-2 ps-2  " type="password" name="password_two" placeholder="Retapez votre mot de passe" required />

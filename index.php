@@ -1,19 +1,20 @@
 <?php
-   
+   session_start();
+  
     // Connexion à la bdd
-    try {
-        $bdd = new PDO('mysql:host=localhost;dbname=formation_php;charset=utf8', 'root', '');
-    }
-    catch(Exception $e){
-        die('Erreur :'.$e->getMessage());
-    }
+   
+    require_once('connection.php');
+
+    // variable
+    // $pseudo        =htmlspecialchars($_POST['pseudo']);
 
    
 
          // creation de la requete
-         $reponse = $bdd->prepare('SELECT * FROM commentaires');
-         $reponse->execute();
+        //  $reponse = $bdd->prepare('SELECT * FROM user where id=3');
+        //  $reponse->execute();
          // Affichage 
+        
         
 
 	
@@ -43,10 +44,24 @@
   
     <!-- Navbar -->
 
-    <nav class="main-nav bg-dark d-flex justify-content-center py-3 ">
-      <a href="index.php" class="text-beige text-uppercase text-decoration-none">Home</a>
-    <a href="inscription2.php" class="text-light text-uppercase text-decoration-none ms-3">Inscription</a>
-    <a href="reservation.html" class="text-light text-uppercase text-decoration-none ms-3">Reservation</a>
+    <nav class="main-nav bg-dark d-flex justify-content-center py-3 text-center  ">
+      <a href="index.php" class="text-beige text-uppercase d-flex align-items-center text-decoration-none">Home</a>
+      <?php if(isset($_SESSION['connect'])) { ?>
+        <a href="logout.php" class="text-beige text-uppercase d-flex align-items-center text-decoration-none ms-3">Se déconnecter</a> 
+        <?php } else { ?>
+    <a href="inscription2.php" class="text-beige text-uppercase d-flex align-items-center text-decoration-none ms-3">Inscription</a>
+    <?php } ?>
+    <a href="reservation.html" class="text-beige text-uppercase d-flex align-items-center text-decoration-none ms-3">Reservation</a>
+
+    <?php if(isset($_SESSION['connect'])) {  
+     
+      echo '<p class="ms-5 h2 d-flex align-items-center mb-0">Bonjour,  '.$_SESSION['pseudo'].'</p>';
+       } else {
+      echo  '<p class="ms-5 h2 d-flex align-items-center mb-0">Bonjour </p>';
+       }
+      
+       
+    ?>
     </nav>
 
     <div class="bg-dark mb-5 text-center ">

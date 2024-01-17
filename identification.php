@@ -13,6 +13,7 @@
 		// Variables
 		$email			= htmlspecialchars($_POST['email']);
 		$password		= htmlspecialchars($_POST['password']);
+		$pseudo        =htmlspecialchars($_POST['pseudo']);
 
 		// L'adresse email est-elle correcte ?
 		if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -46,10 +47,11 @@
 
 		while($user = $req->fetch()) {
 
-			if($password == $user['password']) {
+			if($password == $user['password'] && $pseudo == $user['pseudo']) {
 
 				$_SESSION['connect'] = 1;
 				$_SESSION['email']	 = $user['email'];
+				$_SESSION['pseudo']  = $user['pseudo'];
 
 				if(isset($_POST['auto'])) {
 
@@ -57,7 +59,8 @@
 
 				}
 
-				header('location: identification.php?success=1');
+				// header('location: identification.php?success=1');
+				header('location: index.php');
 				exit();
 
 			}
@@ -99,6 +102,7 @@
 					} ?>
 
 					<form method="post" class="d-flex flex-column w-50 h-50 m-auto mb-3" action="identification.php">
+					<input class="mb-4 py-2 border-1  rounded-top-3 ps-2" type="text" name="pseudo" placeholder="Votre pseudo" required />
 						<input class="mb-4 py-2 border-1  rounded-top-3 ps-2" type="email" name="email" placeholder="Votre adresse email" required />
 						<input class="mb-4 py-2 ps-2" type="password" name="password" placeholder="Mot de passe" required />
 						<button class=" bg-card-color-1 border-1 rounded-bottom-3 py-3 text-center text-white" type="submit">S'identifier</button>
