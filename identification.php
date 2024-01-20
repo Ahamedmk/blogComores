@@ -52,6 +52,7 @@
 				$_SESSION['connect'] = 1;
 				$_SESSION['email']	 = $user['email'];
 				$_SESSION['pseudo']  = $user['pseudo'];
+				$_SESSION['id']      = $user['id'];
 
 				if(isset($_POST['auto'])) {
 

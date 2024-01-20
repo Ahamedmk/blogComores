@@ -21,12 +21,12 @@
     $requete->execute([$story, $nombre]);
     
     // supprimer des donnée
-    $requete = $bdd->prepare('DELETE FROM commentaires Where contenu = :id');
-    $requete->execute(
-        [
-            'id'=> 'je reviendrais demain avec le reste de ma famille'
-        ]
-    );
+    // $requete = $bdd->prepare('DELETE FROM commentaires Where contenu = :id');
+    // $requete->execute(
+    //     [
+    //         'id'=> 'je reviendrais demain avec le reste de ma famille'
+    //     ]
+    // );
 
     // modifier les donner
     //  $requete = $bdd->prepare('UPDATE commentaires SET contenu = :newContenu WHERE utilisateur_id = :userd');

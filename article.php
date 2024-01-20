@@ -2,15 +2,31 @@
     $title = "articles";
 
     ob_start();
+    session_start();
 
     // Connexion à la bdd
-    try {
-        $bdd = new PDO('mysql:host=localhost;dbname=formation_php;charset=utf8', 'root', '');
-    }
-    catch(Exception $e){
-        die('Erreur :'.$e->getMessage());
-    }
+    
+		require_once('connection.php');
 
+        //Variable
+		$contenu         =htmlspecialchars($_POST['contenu']);
+        // $email         =htmlspecialchars($_POST['email']);
+        $id_utilisateur        =htmlspecialchars($_POST['id_utilisateur']);
+
+        // $contenu   = htmlspecialchars($_POST['contenu']);
+
+    $requete = $bdd->prepare('INSERT INTO commentaires(contenu,utilisateur_id ) VALUES(?, ?)');
+           $requete->execute([$contenu, $id_utilisateur]);
+
+        
+        //where
+        $requete = $bdd->query('SELECT contenu, day_date, pseudo
+         FROM commentaires, user
+          WHERE user.id = commentaires.utilisateur_id');
+
+       
+    
+     
 	
 ?>
 
@@ -28,14 +44,12 @@
         
         <h2 class="my-5">Laissez un commentaire</h2>
 
-    <form >
+    <form method="post" class="mb-3 form-floating" action=" article.php ">
      
-        <div class="mb-3 form-floating">  
-            <textarea class=" form-control" id="comment" rows="10" placeholder="Votre commentaire" style="height:100px" required ></textarea>
-            <label for="comments">Commentaire...</label>
-        </div>
+          <input type="hidden" name="id_utilisateur" value= "<?= $_SESSION['id'] ?>">
+            <textarea class=" form-control" id="comment" name="contenu" rows="10" style="height:100px" required ></textarea>
 
-        <button type="submit" class="btn btn-beige">Envoyer le commentaire</button>
+        <button type="submit" class="btn btn-beige mt-3">Envoyer le commentaire</button>
     </form>
 </div>
 			
@@ -47,6 +61,16 @@
 
     <section class='container text-dark-1'>
         <div class='fst-italic mb-5'>
+        <?php 
+             while($commentaire = $requete->fetch()) {
+                echo '<h5 class="text-decoration-underline">' .$commentaire['pseudo'].'</h5>';
+                echo '<p>'.$commentaire['contenu'].'</p>';
+                echo '<p>' .$commentaire['day_date'].'</p>';
+             }
+            
+            ?>
+        </div>
+        <!-- <div class='fst-italic mb-5'>
             <h5 class='text-decoration-underline'> Jean Paul</h5>
             <p>
                 J'ai bien aimé votre article!!!
@@ -63,7 +87,7 @@
             <p>
                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minima, quam nesciunt praesentium alias cumque ab eius officia corrupti in, molestias numquam adipisci! Sequi nesciunt inventore voluptates reprehenderit facere quasi asperiores?
             </p>
-        </div>
+        </div> -->
     </section>
 
 	<?php
