@@ -4,22 +4,12 @@
     // Connexion à la bdd
    
     require_once('connection.php');
-
-    // variable
-    // $pseudo        =htmlspecialchars($_POST['pseudo']);
-
-   
-
-         // creation de la requete
-        //  $reponse = $bdd->prepare('SELECT * FROM user where id=3');
-        //  $reponse->execute();
-         // Affichage 
-        
-        
-
-	
+         
+                 // creation de la requete
+                 $reponse = $bdd->prepare('SELECT * FROM creations');
+                 $reponse->execute();
+           	
 ?>
-
 
 
 <!DOCTYPE html>
@@ -51,9 +41,10 @@
         <?php } else { ?>
     <a href="inscription2.php" class="text-beige text-uppercase d-flex align-items-center text-decoration-none ms-3">Inscription</a>
     <?php } ?>
-    <a href="reservation.html" class="text-beige text-uppercase d-flex align-items-center text-decoration-none ms-3">Reservation</a>
+    <a href="admin.php" class="text-beige text-uppercase d-flex align-items-center text-decoration-none ms-3">Admin</a>
 
     <?php if(isset($_SESSION['connect'])) {  
+     
      
       echo '<p class="ms-5 h2 d-flex align-items-center mb-0">Bonjour,  '.$_SESSION['pseudo'].'</p>';
        } else {
@@ -110,78 +101,24 @@
 
         <div class="col">
             <div class="row row-cols-2 row-cols-md-3 g-4 h-100">
-              <div class="col">
-                <div class="card">
-                  <img src="./ressources/images/IMG_20171024_144321.jpg" class="card-img-top" alt="plage1">
-                  <div class="card-body">
-                    <h5 class="card-title">Grande Comores</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <a href="#" class="card-link">lire la suite ...</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="card">
-                  <img src="./ressources/images/IMG_20171024_152330.jpg" class="card-img-top" alt="plage2">
-                  <div class="card-body">
-                    <h5 class="card-title">Moheli</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <a href="#" class="card-link">lire la suite ...</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="card">
-                  <img src="./ressources/images/IMG_20171024_154729.jpg" class="card-img-top" alt="plage3">
-                  <div class="card-body">
-                    <h5 class="card-title">Anjouan</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <a href="#" class="card-link">lire la suite ...</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="card">
-                  <img src="./ressources/images/IMG_20171024_155345.jpg" class="card-img-top" alt="plage4">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <a href="#" class="card-link">lire la suite ...</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="card">
-                  <img src="./ressources/images/IMG_20171024_144321.jpg" class="card-img-top" alt="plage1">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <a href="#" class="card-link">lire la suite ...</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="card">
-                  <img src="./ressources/images/IMG_20171024_152330.jpg" class="card-img-top" alt="plage2">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <a href="#" class="card-link">lire la suite ...</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          
+            <?php while($creation = $reponse->fetch()) {?>
+                 
+                 
+                 <div class="col">
+                     <div class="card">
+                         <img src="./uploads/<?php echo $creation['photos']?>" class="card-img-top" alt="plage1">
+                       <div class="card-body">
+                         <h5 class="card-title"><?php echo $creation['titre']?></h5>
+                         <p class="card-text"><?php echo $creation['commentaire']?></p>
+                         <a href="<?php echo $creation['lien']?>" class="card-link">lire la suite ...</a>
+                       </div>
+                     </div>
+                   </div>
+                     
+                      <?php  } ?>  
+            </div> 
         </div>
-
       </div>
-     
-      <?php 
-            //  while($commentaire = $reponse->fetch()) {
-            //     echo '<div class="text-dark-1 m-2">' .$commentaire['contenu']  .$commentaire['date'].'</div>';
-            //  }
-            
-            ?>
     </div>
 
  <footer class="bg-dark p-4 text-center">
