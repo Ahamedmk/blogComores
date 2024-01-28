@@ -110,7 +110,7 @@
                        <div class="card-body">
                          <h5 class="card-title"><?php echo $creation['titre']?></h5>
                          <p class="card-text"><?php echo $creation['commentaire']?></p>
-                         <a href="<?php echo $creation['lien']?>" class="card-link">lire la suite ...</a>
+                         <a href="article.php?id=<?php echo $creation['id']?>" class="card-link">lire la suite ...</a>
                        </div>
                      </div>
                    </div>
