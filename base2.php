@@ -20,30 +20,34 @@
   
     <!-- Navbar -->
 
-    <nav class="main-nav bg-dark d-flex justify-content-center py-3 ">
-      <a href="index.php" class="text-light text-uppercase text-decoration-none">Home</a>
-    <a href="inscription2.php" class="text-light text-uppercase text-decoration-none ms-3">Inscription</a>
-    <a href="reservation.html" class="text-light text-uppercase text-decoration-none ms-3">Reservation</a>
+    <nav class="main-nav bg-dark d-flex justify-content-center py-3 text-center  ">
+      <a href="index.php" class="text-beige text-uppercase d-flex align-items-center text-decoration-none">Home</a>
+      <?php if(isset($_SESSION['connect'])) { ?>
+        <a href="logout.php" class="text-beige text-uppercase d-flex align-items-center text-decoration-none ms-3">Déconnection</a> 
+        <a href="admin.php" class="text-beige text-uppercase d-flex align-items-center text-decoration-none ms-3">Admin</a>
+        <?php } else { ?>
+    <a href="inscription2.php" class="text-beige text-uppercase d-flex align-items-center text-decoration-none ms-3">Inscription</a>
+    <?php } ?>
+    <a href="identification.php" class="text-beige text-uppercase d-flex align-items-center text-decoration-none ms-3">Connection</a>
+
+    <?php if(isset($_SESSION['connect'])) {  
+     
+     
+      echo '<p class="ms-5 h2 d-flex align-items-center mb-0">Bonjour,  '.$_SESSION['pseudo'].'</p>';
+       } else {
+      echo  '<p class="ms-5 h2 d-flex align-items-center mb-0">Bonjour </p>';
+       }
+      
+       
+    ?>
     </nav>
 
-    <!-- <div class="bg-dark mb-5 text-center ">
-      <div class="d-flex justify-content-end me-5">
-      <h1 class="playfair-font display-2 text-beige text-center m-2">Les Iles de la Lune</h1>
-      <div class="d-none d-sm-block w-25">
-        <img src="./ressources/images/lune.png" class="w-25" alt="lune">
-      </div>
-      
-     </div>
-
-      <p class="cinzel text-center fs-5">Al-quamar</p>
-     </div> -->
-
-    <!-- Global Container -->
-    <div class="container flex-grow-1 flex-shrink-0 pb-5">
+       <!-- Global Container -->
+    
 
     <?= $content ?>
 
-    </div>
+    
 
  <footer class="bg-dark p-4 text-center">
   <a href="#" class="text-light text-decoration-none me-5">

@@ -2,6 +2,7 @@
 $title = "admin";
 
 ob_start();
+session_start();
 var_dump($_FILES);
 
 // Connexion à la bdd
