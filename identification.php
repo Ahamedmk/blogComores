@@ -78,7 +78,7 @@
 
 ?>
 	
-	<section>
+	<section class="container flex-grow-1 flex-shrink-0 pb-5">
 		<div id="login-body" class="text-center pb-4 text-dark-1">
 
 				<?php if(isset($_SESSION['connect'])) { ?>
@@ -92,6 +92,7 @@
 					<small><a href="logout.php">Déconnexion</a></small>
 
 				<?php } else { ?>
+					
 					<h1>S'identifier</h1>
 
 					<?php if(isset($_GET['error'])) {

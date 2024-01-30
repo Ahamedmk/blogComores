@@ -7,6 +7,27 @@ session_start();
 // Connexion à la bdd
 require_once('connection.php');
 
+// Variable modification
+$contenu = isset($_POST['texte']) ? htmlspecialchars($_POST['texte']) : '';
+$contenu_id = isset($_POST['commentaire_id']) ? htmlspecialchars($_POST['commentaire_id']) : '';
+$titre = isset($_POST['titre']) ? htmlspecialchars($_POST['titre']) : '';
+
+
+// Variable suppression
+ $supprimer_id = isset($_POST['supprimer_id']) ? htmlspecialchars($_POST['supprimer_id']) : '';
+
+// Modifier les données
+if (!empty($contenu) && !empty($contenu_id)) {
+    $requeteModifier = $bdd->prepare('UPDATE creations SET commentaire = :contenu WHERE id = :contenu_id ' );
+    $requeteModifier->execute(['contenu' => $contenu, 'contenu_id' => $contenu_id]);
+}
+
+// Supprimer des données
+if (!empty($supprimer_id) ) {
+$requeteSupprimer = $bdd->prepare('DELETE FROM creations WHERE id = :supprimer_id');
+$requeteSupprimer->execute(['supprimer_id' => $supprimer_id]);
+}
+
 // Récupération des créations depuis la base de données
 $requete = $bdd->prepare('SELECT * FROM creations');
 $requete->execute();
@@ -63,7 +84,7 @@ $requete->execute();
                                     // Limiter le nombre de mots affichés dans la carte
                                     $commentaire = $creation['commentaire'];
                                     $mots = explode(' ', $commentaire);
-                                    $motsAffiches = array_slice($mots, 0, 20);
+                                    $motsAffiches = array_slice($mots, 0, 18);
                                     echo implode(' ', $motsAffiches);
                                     ?>
                                 </p>
@@ -81,8 +102,69 @@ $requete->execute();
                                 <?php
                                 }
                                 ?>
+                                <?php if(isset($_SESSION['connect'])) { ?>
+                                <div class="text-center mt-2">
+                                    <button type="button" class="btn btn-card-color-1" data-bs-toggle="modal" data-bs-target="#popupModifier<?php echo $creation['id']; ?>">
+                                        Modifier
+                                    </button>
+                                    <button type="button" class="btn btn-card-color-1 " data-bs-toggle="modal" data-bs-target="#popupSupprimer<?php echo $creation['id']; ?>">
+                                        Supprimer
+                                    </button>
+                                </div>
+                                <?php } else { ?>
+                                    
+                                    <?php }?>
+
+                                <!-- Modal modifier -->
+                    <div class="modal fade" id="popupModifier<?php echo $creation['id']; ?>" tabindex="-1" aria-labelledby="popupModifierLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="popupModifierLabel">Modifier l'article</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Formulaire de modification -->
+                                    <form method="post" class="container" action="<?php echo $_SERVER['PHP_SELF']; ?>" >
+                                        <input type="hidden" name="commentaire_id" value="<?php echo $creation['id']; ?>">
+                                        <label class="text-danger fw-bolder "> Nouvel article:</label>
+                                         <textarea name="texte" class="form-control" ></textarea>
+                                        <button type="submit" class="btn btn-primary form-control mt-2">Modifier</button>
+                                    </form>
+                                </div>
+
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Modal supprimer -->
+                    <div class="modal fade" id="popupSupprimer<?php echo $creation['id']; ?>" tabindex="-1" aria-labelledby="popupSupprimerLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="popupSupprimerLabel">Supprimer le commentaire</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Formulaire de suppression -->
+                                    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                                        <input type="hidden" name="supprimer_id" value="<?php echo $creation['id']; ?>">
+                                        <p class="text-dark-1">Êtes-vous sûr de vouloir supprimer ce commentaire ?</p>
+                                        <button type="submit" class="btn btn-danger">Oui, supprimer</button>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                            </div>
+                        </div>
+                        
                     </div>
                 <?php } ?>
             </div>

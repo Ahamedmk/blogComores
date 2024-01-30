@@ -10,7 +10,7 @@ require_once('connection.php');
 
 // Variables
 $titre = isset($_POST['titre']) ? htmlspecialchars($_POST['titre']) : '';
-$lien = isset($_POST['lien']) ? htmlspecialchars($_POST['lien']) : '';
+// $lien = isset($_POST['lien']) ? htmlspecialchars($_POST['lien']) : '';
 $commentaire = isset($_POST['description']) ? htmlspecialchars($_POST['description']) : '';
 
 // Une image est bien envoyée 
@@ -31,8 +31,8 @@ if(isset($_FILES['image']) && $_FILES['image']['error'] === 0){
 
             // Ajouter des données
             if ($deplacer_img) {  
-                $requete = $bdd->prepare('INSERT INTO creations(photos, titre, lien, commentaire ) VALUES(?, ?, ?, ?)');
-                $requete->execute([$newImageName, $titre, $lien, $commentaire]);
+                $requete = $bdd->prepare('INSERT INTO creations(photos, titre, commentaire ) VALUES(?, ?, ?)');
+                $requete->execute([$newImageName, $titre, $commentaire]);
 
                 
             } 
@@ -48,7 +48,7 @@ $reponse->execute();
 // Affichage 
 ?>
 
-<section>
+<section class="container flex-grow-1 flex-shrink-0 pb-5">
     <div  >
         <h1 class="text-center pb-4 text-dark-1">ADMIN</h1>
 
@@ -58,8 +58,8 @@ $reponse->execute();
                 <input type="file" class="form-control mb-2" name="image" id="image"  />
                 <label for="image" class="fw-bolder">Titre</label>
                 <input type="text" class="form-control mb-2" name="titre" placeholder="titre" required>
-                <label for="image" class="fw-bolder">Lien</label>
-                <input type="text" class="form-control mb-2" name="lien" placeholder="lien" required>
+                <!-- <label for="image" class="fw-bolder">Lien</label>
+                <input type="text" class="form-control mb-2" name="lien" placeholder="lien" required> -->
                 <label for="image" class="fw-bolder">Description</label>
                 <textarea name="description" class="form-control mb-2" id="description" ></textarea>
             </div>
