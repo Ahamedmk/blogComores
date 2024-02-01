@@ -1,15 +1,19 @@
 <?php
 
-require('model/userModel.php');
+require_once('model/CreationsManager.php');
+require('model/ArticlesManager.php');
 
 
 function home(){
-    $requete = getCreations();
+    $creationsManager = new CreationsManager();
+    $requete = $creationsManager->getCreations();
 
     require ('view/plageView.php');
 }
 
 function articles(){
-    $requete = getArticles();
+    $articlesManager = new ArticlesManager();
+    $requete = $articlesManager->getArticles();
+
     require ('view/articleView.php');
 }
