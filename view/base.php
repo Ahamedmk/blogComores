@@ -24,7 +24,7 @@
       <a href="index.php" class="text-beige text-uppercase d-flex align-items-center text-decoration-none">Home</a>
       <?php if(isset($_SESSION['connect'])) { ?>
         <a href="logout.php" class="text-beige text-uppercase d-flex align-items-center text-decoration-none ms-3">Déconnection</a> 
-        <a href="admin.php" class="text-beige text-uppercase d-flex align-items-center text-decoration-none ms-3">Admin</a>
+        <a href="?page=admin" class="text-beige text-uppercase d-flex align-items-center text-decoration-none ms-3">Admin</a>
         <?php } else { ?>
     <a href="inscription2.php" class="text-beige text-uppercase d-flex align-items-center text-decoration-none ms-3">Inscription</a>
     <a href="identification.php" class="text-beige text-uppercase d-flex align-items-center text-decoration-none ms-3">Connection</a>

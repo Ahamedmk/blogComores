@@ -4,33 +4,6 @@ $title = "Comores";
 ob_start();
 session_start();
 
-// Connexion à la bdd
-// require_once('./model/userModel.php');
-
-// Variable modification
-$contenu = isset($_POST['texte']) ? htmlspecialchars($_POST['texte']) : '';
-$contenu_id = isset($_POST['commentaire_id']) ? htmlspecialchars($_POST['commentaire_id']) : '';
-$titre = isset($_POST['titre']) ? htmlspecialchars($_POST['titre']) : '';
-
-
-// Variable suppression
- $supprimer_id = isset($_POST['supprimer_id']) ? htmlspecialchars($_POST['supprimer_id']) : '';
-
-// Modifier les données
-if (!empty($contenu) && !empty($contenu_id)) {
-    $requeteModifier = $bdd->prepare('UPDATE creations SET commentaire = :contenu WHERE id = :contenu_id ' );
-    $requeteModifier->execute(['contenu' => $contenu, 'contenu_id' => $contenu_id]);
-}
-
-// Supprimer des données
-if (!empty($supprimer_id) ) {
-$requeteSupprimer = $bdd->prepare('DELETE FROM creations WHERE id = :supprimer_id');
-$requeteSupprimer->execute(['supprimer_id' => $supprimer_id]);
-}
-
-// Récupération des créations depuis la base de données
-//  $requete = $bdd->prepare('SELECT * FROM creations');
-//  $requete->execute();
 ?>
 
 <div class="bg-dark mb-5 text-center">
@@ -93,7 +66,7 @@ $requeteSupprimer->execute(['supprimer_id' => $supprimer_id]);
                                 if (isset($_SESSION['id'])) {
                                     // Si la session est active, afficher le lien vers la page article
                                     ?>
-                                    <a href="view/articleView.php?id=<?php echo $creation['id'] ?>" class="card-link">Lire la suite...</a>
+                                    <a href="?page=articles?id=<?php echo $creation['id'] ?>" class="card-link">Lire la suite...</a>
                                 <?php
                                 } else {
                                     // Sinon, afficher un lien avec une alerte pour inciter à s'inscrire
@@ -127,7 +100,7 @@ $requeteSupprimer->execute(['supprimer_id' => $supprimer_id]);
                                 </div>
                                 <div class="modal-body">
                                     <!-- Formulaire de modification -->
-                                    <form method="post" class="container" action="<?php echo $_SERVER['PHP_SELF']; ?>" >
+                                    <form method="post" class="container" action="index.php?page=comores" >
                                         <input type="hidden" name="commentaire_id" value="<?php echo $creation['id']; ?>">
                                         <label class="text-danger fw-bolder "> Nouvel article:</label>
                                          <textarea name="texte" class="form-control" ></textarea>
@@ -151,7 +124,7 @@ $requeteSupprimer->execute(['supprimer_id' => $supprimer_id]);
                                 </div>
                                 <div class="modal-body">
                                     <!-- Formulaire de suppression -->
-                                    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                                    <form method="post" action="index.php?page=comores">
                                         <input type="hidden" name="supprimer_id" value="<?php echo $creation['id']; ?>">
                                         <p class="text-dark-1">Êtes-vous sûr de vouloir supprimer ce commentaire ?</p>
                                         <button type="submit" class="btn btn-danger">Oui, supprimer</button>
