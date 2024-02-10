@@ -2,7 +2,9 @@
 $title = "Comores";
 
 ob_start();
-session_start();
+if (session_status() === PHP_SESSION_NONE){
+    session_start();
+ }
 
 ?>
 
@@ -66,7 +68,7 @@ session_start();
                                 if (isset($_SESSION['id'])) {
                                     // Si la session est active, afficher le lien vers la page article
                                     ?>
-                                    <a href="?page=articles?id=<?php echo $creation['id'] ?>" class="card-link">Lire la suite...</a>
+                                    <a href="?page=articles&id=<?php echo $creation['id'] ?>" class="card-link">Lire la suite...</a>
                                 <?php
                                 } else {
                                     // Sinon, afficher un lien avec une alerte pour inciter à s'inscrire

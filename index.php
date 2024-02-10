@@ -16,9 +16,26 @@ try {
                 home();
             }
         }
-        else if($_GET['page'] == 'articles') {
-            articles();
+        else if($_GET['page'] == 'inscription') {
+            if(!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['password_two']) && !empty($_POST['pseudo'])){
+                addInscription(htmlspecialchars($_POST['email']),htmlspecialchars($_POST['password']),htmlspecialchars($_POST['password_two']),htmlspecialchars($_POST['pseudo']));
+            }
+            else {  
+            inscription();
+            }
         }
+        else if($_GET['page'] == 'articles') {
+            if(!empty($_POST['contenu']) && !empty($_POST['id_utilisateur'])){
+                addCommentaire(htmlspecialchars($_POST['contenu']));
+            }
+            else {
+            articles();
+            }
+        }
+
+        // else if($_GET['page'] == 'logout') {
+        //     logout();
+        // }
 
         else if($_GET['page'] == 'admin') {
             if(!empty($_POST['titre']) && !empty($_POST['description'])){
@@ -29,11 +46,21 @@ try {
             }
         } 
 
+        else if($_GET['page'] == 'identification') {
+            if(!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['pseudo'])){
+                addIdentification(htmlspecialchars($_POST['email']),htmlspecialchars($_POST['password']),htmlspecialchars($_POST['pseudo']));
+            }
+            else {
+                identification();
+            }
+        } 
+
         else {
             throw new Exception("Cette page n'existe pas ou a été supprimée.");
         }
     }
     else {
+       
         home();
     }
 }

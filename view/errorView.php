@@ -2,7 +2,7 @@
 $title = "Erreur";
 
 ob_start();
-session_start();
+
 
 // Connexion à la bdd
 // require_once('model/userModel.php');
