@@ -28,7 +28,7 @@
     <nav class="main-nav bg-dark d-flex justify-content-center py-3 text-center  ">
       <a href="index.php" class="text-beige text-uppercase d-flex align-items-center text-decoration-none">Home</a>
       <?php if(isset($_SESSION['connect'])) { ?>
-        <a href="view/logout.php" class="text-beige text-uppercase d-flex align-items-center text-decoration-none ms-3">Déconnection</a> 
+        <a href="?page=logout" class="text-beige text-uppercase d-flex align-items-center text-decoration-none ms-3">Déconnection</a> 
         <a href="?page=admin" class="text-beige text-uppercase d-flex align-items-center text-decoration-none ms-3">Admin</a>
         <?php } else { ?>
     <a href="?page=inscription" class="text-beige text-uppercase d-flex align-items-center text-decoration-none ms-3">Inscription</a>

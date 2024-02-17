@@ -21,7 +21,7 @@ function home(){
 function articles(){
     $articlesManager = new ArticlesManager();
     $requete = $articlesManager->getArticles();
-    $req = $articlesManager->getArticleComments();
+    $requeteCommentaires = $articlesManager->getArticleComments();
 
     require ('view/articleView.php');
 }
@@ -37,6 +37,10 @@ function inscription() {
     $inscriptionManager = new InscriptionManager();
     $requete = $inscriptionManager->getInscription();
     require ('view/inscriptionView.php'); 
+}
+
+function logout() {
+    require ('view/logoutView.php'); 
 }
 
 function identification(){
@@ -106,16 +110,15 @@ function addInscription($email, $password,$password_two, $pseudo){
     }
 }
 
-function addCommentaire($contenu, $id_utilisateur){
+function addCommentaire($contenu, $id_utilisateur, $article_id) {
     $articlesManager = new ArticlesManager();
-    $result = $articlesManager->addComment($contenu, $id_utilisateur);
-    if($result === false) {
-        throw new Exception ("un problème est survenu");
-    }
-    else {
-        header('location: index.php');
+    $result = $articlesManager->addComment($contenu, $id_utilisateur, $article_id);
+    if ($result === false) {
+        throw new Exception("Un problème est survenu lors de l'ajout du commentaire.");
+    } else {
+        header("Location: index.php?page=articles&id=$article_id");
         exit();
     }
-
 }
+
 

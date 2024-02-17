@@ -13,7 +13,7 @@
 
 			} else if(isset($_GET['success'])) {
 
-				echo '<div class="text-danger">Vous êtes désormais inscrit. <a href="identification.php">Connectez-vous</a>.</div>';
+				echo '<div class="text-danger">Vous êtes désormais inscrit. <a href="?page=identification">Connectez-vous</a>.</div>';
 
 			} ?>
 

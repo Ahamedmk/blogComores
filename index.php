@@ -25,17 +25,17 @@ try {
             }
         }
         else if($_GET['page'] == 'articles') {
-            if(!empty($_POST['contenu']) && !empty($_POST['id_utilisateur'])){
-                addCommentaire(htmlspecialchars($_POST['contenu']));
+            if(!empty($_POST['contenu']) && !empty($_POST['id_utilisateur']) && $_GET['id']){
+                addCommentaire(htmlspecialchars($_POST['contenu']),htmlspecialchars($_POST['id_utilisateur']),htmlspecialchars($_GET['id']));
             }
             else {
             articles();
             }
         }
 
-        // else if($_GET['page'] == 'logout') {
-        //     logout();
-        // }
+         else if($_GET['page'] == 'logout') {
+             logout();
+         }
 
         else if($_GET['page'] == 'admin') {
             if(!empty($_POST['titre']) && !empty($_POST['description'])){
