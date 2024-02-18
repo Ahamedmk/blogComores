@@ -2,8 +2,6 @@
 $title = "admin";
 
 ob_start();
-var_dump($_FILES);
-
 
 ?>
 
